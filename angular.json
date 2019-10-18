@@ -24,9 +24,13 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-1.11.1.min.js",
+              "src/assets/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {

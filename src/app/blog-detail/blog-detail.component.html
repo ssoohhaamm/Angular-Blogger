@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row" *ngIf="!loaded">
+  	<div class="col-xs-12 text-center">
+  		<img src="assets/images/loading.gif" alt="">
+  	</div>
+  </div>
+  <div class="row" *ngIf="loaded">
+    <div class="col-xs-3">
+      <img *ngIf="detail.blogimage != undefined && detail.blogimage != '' && detail.blogimage != null" src="{{detail.blogimage}}" alt="" class="img-responsive">
+      <img *ngIf="detail.blogimage == undefined || detail.blogimage == '' || detail.blogimage == null" src="{{detail.avatar}}" alt="" class="img-responsive">
+    </div>
+    <div class="col-xs-9">
+      <h1>{{detail.title}}</h1>      
+      <div>
+      	<p [innerHTML]="detail.content">
+      	</p>
+        <span class="badge">Posted {{detail.createdAt | date: 'dd/MM/yyyy'}}</span>
+        <div class="pull-right"><span class="label label-success c-pointer" (click)="toggleLike()"><span class="glyphicon glyphicon-thumbs-up m-r-10" aria-hidden="true"></span>{{detail.likes}}</span></div>
+        <!-- <div class="pull-right m-r-10"><span class="label label-default">{{detail.tags}}</span></div> -->
+        <div class="col-xs-12">
+            <ng-container *ngFor="let innerItem of detail.tags?.split('#')">
+              <span class="label label-default m-r-10" *ngIf="innerItem != ''">#{{innerItem}}</span>
+            </ng-container>
+        </div>
+      </div>
+      <div class="row">        
+        <div class="col-xs-12">
+          <h4>Comments</h4>
+        </div>
+        <div *ngFor="let item of comments">          
+          <div class="col-xs-12">
+            <hr>
+          </div>
+          <div class="col-xs-10">
+              <span >{{item.comment}}</span>              
+          </div>
+          <div class="col-xs-2">
+              <span *ngIf="item.commentBy == username" (click)="editComment(item.id,item.comment)" class="glyphicon glyphicon-pencil m-r-10" aria-hidden="true"></span>
+              <span *ngIf="item.commentBy == username" (click)="removeComment(item.id)" class="glyphicon glyphicon-trash m-r-10" aria-hidden="true"></span>
+              <label>By {{item.commentBy}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-xs-12" *ngIf="loaded">
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+          <div class="form-group">
+            <label for="title">Add Comment</label>
+            <textarea  class="form-control" id="Comment" formControlName="Comment" [ngClass]="{ 'is-invalid': submittedComment && f.Comment.errors }" placeholder="Comment"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">You are not logged in.
+        Click here to <a routerLink="/login" (click)="clodseModal()">Login</a>  </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <form  [formGroup]="commentEditForm" (ngSubmit)="onEditComment()">
+            <div class="form-group">
+              <label for="title">Edit Comment</label>
+              <textarea  class="form-control" id="Comment" formControlName="Comment" [ngClass]="{ 'is-invalid': EditedComment && f2.Comment.errors }"></textarea>
+            </div>
+            <button *ngIf="editmode" type="submit" class="btn btn-default">Submit</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,50 @@
+<div class="container" *ngIf="!loaded">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <img src="assets/images/loading.gif" alt="">
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="loaded">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <a class="btn" (click)="toggleSearch()">Filter By Tags</a>
+    </div>
+  </div>
+  <div class="row" *ngFor="let item of blogs">
+    <div class="col-xs-3">
+      <img src="{{item.blogimage}}" alt="" class="img-responsive">
+    </div>
+    <div class="col-xs-9">
+      <h1 [routerLink]="['/blog-detail']" [queryParams]="{slug: item.id}">{{item.title}}</h1>
+      <div>
+        <span class="badge">Posted {{item.createdAt | date: 'dd/MM/yyyy'}}</span>
+        <div class="pull-right"><span class="label label-success"><span class="glyphicon glyphicon-thumbs-up m-r-10" aria-hidden="true"></span>{{item.likes}}</span></div>        
+      </div>
+      <div class="col-xs-12">
+          <ng-container *ngFor="let innerItem of item.tags?.split('#')">
+            <span class="label label-default m-r-10" *ngIf="innerItem != ''">#{{innerItem}}</span>
+          </ng-container>
+      </div>
+    </div>
+    <div class="col-xs-12">
+        <hr>
+    </div>
+  </div>
+  <ul class="pagination" *ngIf="totalRecords > 5">
+    <li *ngFor="let item of pageSize;let i = index"><a (click)="changePage(i)">{{i+1}}</a></li>
+  </ul>
+</div>
+
+    <div class="col-sm-4 sidebar" [hidden]="!showSidebar">
+        <div class="col-xs-12">
+          <h4>
+            Tags
+          </h4> 
+        </div>
+        <div class="col-xs-12">
+          <ng-container *ngFor="let innerItem of allTags">
+                <span class="label label-default m-r-10" [routerLink]="['/filteredTag']" [queryParams]="{tag: innerItem}" *ngIf="innerItem != ''">#{{innerItem}}</span>
+              </ng-container>
+        </div>
+      </div>

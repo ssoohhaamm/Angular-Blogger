@@ -1,0 +1,38 @@
+<div class="container" *ngIf="!loaded">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <img src="assets/images/loading.gif" alt="">
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="loaded">
+  <ng-container *ngFor="let item of blogs">
+  <div class="row" *ngIf="slug == item.id">
+    <div class="col-xs-3">
+      <img src="{{item.blogimage}}" alt="" class="img-responsive">
+    </div>
+    <div class="col-xs-7">
+      <h1 [routerLink]="['/blog-detail']" [queryParams]="{slug: item.id}">{{item.title}}</h1>      
+      <div>
+        <span class="badge">Posted {{item.createdAt | date: 'dd/MM/yyyy'}}</span>
+        <div class="pull-right"><span class="label label-success"><span class="glyphicon glyphicon-thumbs-up m-r-10" aria-hidden="true"></span>{{item.likes}}</span></div>
+        <div class="col-xs-12">
+            <ng-container *ngFor="let innerItem of item.tags?.split('#')">
+              <span class="label label-default m-r-10" *ngIf="innerItem != ''">#{{innerItem}}</span>
+            </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2">
+          <span [routerLink]="['/create-blog']" [queryParams]="{slug: item.id}" class="glyphicon glyphicon-pencil m-r-10" aria-hidden="true"></span>
+          <span (click)="removeComment(item.id)" class="glyphicon glyphicon-trash m-r-10" aria-hidden="true"></span>          
+      </div>
+    <div class="col-xs-12">
+        <hr>
+    </div>
+  </div>
+</ng-container>
+  <ul class="pagination" *ngIf="totalRecords > 5">
+    <li *ngFor="let item of pageSize;let i = index"><a (click)="changePage(i)">{{i+1}}</a></li>
+  </ul>
+</div>

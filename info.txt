@@ -1,0 +1,27 @@
+There are too many things we can do and effectively, but due to time limit and api limitaion implemented basic but necessary functionalities.
+                    
+                    * Have used https://mockapi.io
+                    * Bootsrap 3
+                    * ANgular 8
+
+                    1 navbar : 
+                      back button
+                      Brand Logo
+                      Login / User Dropdown(after Login)
+                    2 home :
+                      listing with title, tags and likes
+                      on click title will navigate to detail
+                      nothing is editable here(likes)
+                    3 detail :
+                      title, tags , likes and comments are availbale
+                      user can like and unlike(one user one like validation not implemented)
+                      user can add, edit, remove his comment
+                    4 login :
+                      user can register
+                      user can login
+                      user can add, edit, remove blog after login
+                      user can edit, remove profile
+                      user can see "my blogs" , edit profile and log out from user drop down in nav
+                    5 Tags : 
+                      on listing page filter tags filter is available
+                      on clcik any tag will navigate to filtered list

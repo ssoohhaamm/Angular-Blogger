@@ -1,0 +1,14 @@
+<div class="sidebar">
+	<div class="col-xs-12">
+		<h4>
+			Tags
+		</h4>	
+	</div>
+	<div class="col-xs-12">
+		<ng-container *ngFor="let item of blogs">
+			<ng-container *ngFor="let innerItem of item.tags?.split('#')">
+	        	<span class="label label-default m-r-10" [routerLink]="['/']" [queryParams]="{slug: innerItem}" *ngIf="innerItem != ''">#{{innerItem}}</span>
+	        </ng-container>
+		</ng-container>
+	</div>
+</div>

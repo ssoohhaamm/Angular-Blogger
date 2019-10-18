@@ -1,0 +1,32 @@
+<div class="container" *ngIf="!loaded">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <img src="assets/images/loading.gif" alt="">
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="loaded">
+	<div class="row">
+		<div class="col-xs-12">
+			<form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+			  <div class="form-group">
+			    <label for="title">Title</label>
+			    <input type="text" class="form-control" id="title" formControlName="title" [ngClass]="{ 'is-invalid': submittedBlog && f.title.errors }" placeholder="Title">
+			  </div>
+			  <div class="form-group">
+			    <label for="iamgeUrl">Image Url</label>
+			    <input type="text" class="form-control" id="iamgeUrl" formControlName="blogimage" placeholder="Image Url" [ngClass]="{ 'is-invalid': submittedBlog && f.blogimage.errors }">
+			  </div>
+			  <div class="form-group">
+			    <label for="iamgeUrl">Tags <small>(Please add with # seperated)</small></label>
+			    <input type="text" class="form-control" id="tags" formControlName="tags" placeholder="Add tags with #" [ngClass]="{ 'is-invalid': submittedBlog && f.tags.errors }">
+			  </div>
+			  <div class="form-group">
+			    <label for="content">Content</label>
+			    <angular-editor [ngClass]="{ 'is-invalid': submittedBlog && f.content.errors }" formControlName="content"></angular-editor>			    
+			  </div>  
+			  <button type="submit" class="btn btn-default">Submit</button>
+			</form>		
+		</div>
+	</div>
+</div>
