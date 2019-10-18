@@ -28,7 +28,7 @@ export class CreateBlogComponent implements OnInit {
   ngOnInit() {
     if(this.commonService.userDetails != undefined && this.commonService.userDetails["username"] != "" && this.commonService.userDetails["username"] != null)
     {
-      this.userId = this.commonService.userDetails["user"];
+      this.userId = this.commonService.userDetails["userId"];
       this.isLogged = this.commonService.userDetails["isLogged"];
     }
   	this.loaded = false;
