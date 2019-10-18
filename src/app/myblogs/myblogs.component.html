@@ -7,7 +7,7 @@
 </div>
 <div class="container" *ngIf="loaded">
   <ng-container *ngFor="let item of blogs">
-  <div class="row" *ngIf="slug == item.id">
+  <div class="row" *ngIf="slug == item.userId">
     <div class="col-xs-3">
       <img src="{{item.blogimage}}" alt="" class="img-responsive">
     </div>

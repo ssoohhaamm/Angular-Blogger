@@ -26,7 +26,6 @@ slug = "";
   ngOnInit() {
       this.route.queryParams.subscribe(params => {
     this.slug = decodeURI(params["search"]);
-    console.log(params);
     });
 
     setTimeout(()=>{
