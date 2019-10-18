@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MyblogsComponent implements OnInit {
 
-blogs : any;
 totalRecords : any;
 pageSize = [];
 alldata: any;
@@ -19,13 +18,12 @@ loaded = false;
 slug = "";
   constructor(private blogsservice: BlogsService,private route: ActivatedRoute) {  	
   	
-  	
 
   }  
 
-  ngOnInit() {
+  ngOnInit() {    
       this.route.queryParams.subscribe(params => {
-    this.slug = decodeURI(params["search"]);
+    this.slug = decodeURI(params["search"]);    
     });
 
     setTimeout(()=>{
@@ -33,23 +31,13 @@ slug = "";
       .subscribe(data => {
         this.alldata = data["items"];
         this.totalRecords = data["count"];      
-        this.pageSize.length = Math.floor(this.totalRecords / 5) + 1;
-        setTimeout(()=>{      
-          this.changePage(0);        
-        },300);
+        this.loaded = true;   
       });
     },300);
     
   }
 
-  changePage(i){
-    this.loaded = false;
-    var min = i*5 , max = min + 5;
-    this.blogs = this.alldata.slice(min, max);
-    setTimeout(()=>{
-      this.loaded = true;
-    },300);
-  }
+  
 
   removeComment(id){
     this.blogsservice.removePost(id);

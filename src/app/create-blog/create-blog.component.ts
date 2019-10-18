@@ -3,7 +3,7 @@ import { MustMatch } from '../../helper/must-match.validator';
 import { FormBuilder, FormGroup, ReactiveFormsModule , Validators } from '@angular/forms';
 import { BlogsService } from '../../services/blogs.service';
 import { CommonService } from '../../services/common.service';
-import { Router } from "@angular/router";
+import { Router, UrlSerializer } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -23,7 +23,7 @@ export class CreateBlogComponent implements OnInit {
   isLogged = "false";
   editMode = false;
   postId = "";
-  constructor(private formBuilder: FormBuilder,private blogsservice: BlogsService, private router: Router,private  commonService: CommonService,private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder,private blogsservice: BlogsService, private router: Router,private  commonService: CommonService,private route: ActivatedRoute,private serializer: UrlSerializer) { }
 
   ngOnInit() {
     if(this.commonService.userDetails != undefined && this.commonService.userDetails["username"] != "" && this.commonService.userDetails["username"] != null)
@@ -103,7 +103,9 @@ export class CreateBlogComponent implements OnInit {
         }        
         setTimeout(()=>{
           this.loaded = true;
-          this.router.navigate(['/']);
+          const tree = this.router.createUrlTree(["/myblogs"], { queryParams: { search: this.userId } });
+          console.log(this.serializer.serialize(tree)); // "/?foo=a&bar=42"
+          this.router.navigateByUrl(this.serializer.serialize(tree));
         },300);
     }
 

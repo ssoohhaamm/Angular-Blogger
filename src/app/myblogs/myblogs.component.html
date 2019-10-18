@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="container" *ngIf="loaded">
-  <ng-container *ngFor="let item of blogs">
+  <ng-container *ngFor="let item of alldata">
   <div class="row" *ngIf="slug == item.userId">
     <div class="col-xs-3">
       <img src="{{item.blogimage}}" alt="" class="img-responsive">
@@ -31,8 +31,5 @@
         <hr>
     </div>
   </div>
-</ng-container>
-  <ul class="pagination" *ngIf="totalRecords > 5">
-    <li *ngFor="let item of pageSize;let i = index"><a (click)="changePage(i)">{{i+1}}</a></li>
-  </ul>
+</ng-container> 
 </div>
