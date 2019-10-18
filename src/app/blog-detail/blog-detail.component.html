@@ -43,7 +43,7 @@
       </div>
     </div>
     
-    <div class="col-xs-12" *ngIf="loaded">
+    <div class="col-xs-12" *ngIf="loaded && isLogged == 'true'">
         <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
           <div class="form-group">
             <label for="title">Add Comment</label>
